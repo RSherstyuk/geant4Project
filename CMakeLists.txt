@@ -1,17 +1,32 @@
-cmake_minimum_required(VERSION 3.10...3.20)
+cmake_minimum_required(VERSION 3.10)
+project(GeantProject)
 
+# Включаем GoogleTest
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/heads/main.zip
+)
+FetchContent_MakeAvailable(googletest)
 
-project(MyGeant4Project)
+# Указываем директорию с заголовочными файлами
+include_directories(/usr/include)
 
-find_package(Geant4 REQUIRED)
+# Собираем исходные файлы для основной программы
+file(GLOB SRC_SOURCES "src/*.cc")  # Используем .cc вместо .cpp, если это Geant4
+add_executable(app ${SRC_SOURCES})
 
-include(${Geant4_USE_FILE})
-include_directories(${PROJECT_SOURCE_DIR}/include)
+# Собираем исходные файлы для тестов
+file(GLOB TEST_SOURCES "tests/*.cpp")  # Используем правильный синтаксис
 
-file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
-file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
+add_executable(tests ${TEST_SOURCES})
 
-add_executable(geantExamp main.cc ${sources} ${headers})
-target_link_libraries(geantExamp ${Geant4_LIBRARIES})
+# Линкуем библиотеки для основной программы
+target_link_libraries(app ${Geant4_LIBRARIES})
 
+# Линкуем библиотеки для тестов
+target_link_libraries(tests PRIVATE gtest_main)
 
+# Указываем директории с заголовочными файлами
+target_include_directories(app PRIVATE include)
+target_include_directories(tests PRIVATE include)
