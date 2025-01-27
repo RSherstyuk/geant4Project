@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(GeantProject)
 
+find_package(Geant4 REQUIRED)
+include(${Geant4_USE_FILE})
+
 # Включаем GoogleTest
 include(FetchContent)
 FetchContent_Declare(
@@ -12,7 +15,7 @@ FetchContent_MakeAvailable(googletest)
 include_directories(/usr/include)
 
 file(GLOB SRC_SOURCES "src/*.cc")  
-add_executable(app ${SRC_SOURCES})
+add_executable(app main.cc ${SRC_SOURCES})
 
 # Собираем исходные файлы для тестов
 file(GLOB TEST_SOURCES "tests/*.cpp")  
