@@ -8,6 +8,6 @@ TEST(F, HandlesZeroInput) {
     // tests
 }
 
-TEST(F, HandlesNegativeInput) {
-    //tests  
+TEST(TestGroupDetectorConstruction, Subtest_1) {
+    
 }
