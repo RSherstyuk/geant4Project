@@ -6,8 +6,8 @@
 class DetectorConstruction : public G4VUserDetectorConstruction {
 public:
     DetectorConstruction() {}
-    virtual ~DetectorConstruction() {}
-    virtual G4VPhysicalVolume* Construct();
+    ~DetectorConstruction() {}
+    G4VPhysicalVolume* Construct() override;
 };
 
 #endif

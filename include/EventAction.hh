@@ -6,8 +6,8 @@
 class EventAction : public G4UserEventAction {
 public:
     EventAction() {}
-    virtual ~EventAction() {}
-    virtual void EndOfEventAction(const G4Event*);
+    ~EventAction() {}
+    void EndOfEventAction(const G4Event*) override;
 };
 
 #endif
